@@ -69,9 +69,33 @@
          background: red;
          text-align: center;
      }
+     .start{
+         position: absolute;
+         left: 500px;
+         top: 200px;
+         background: khaki;
+         width: 500px;
+         height: 200px;
+         font-size: 50PX;
+         text-align: center;
+         display: none;
+         
+     }
+     .start a{
+         font-size: 30px;
+         width: 200px;
+         height: 100px;
+         text-decoration: none;
+         color: black;
+
+     }
     </style>
 </head>
 <body>
+
+    <div class="start">GAME OVER<br>
+        <a href="">重新开始</a>
+    </div>
     <div class="one">分数</div>
     <div class="two">掉落数</div>
     <div class="fen1">0</div>
@@ -107,7 +131,9 @@
          divs.push(div);
     }
 }
+    var start=document.querySelector(".start");
     create(3);
+       var fen1=document.querySelector(".fen1");
        var speed=5;
        var t=setInterval(function(){
        for(var i=0;i<divs.length;i++){
@@ -115,20 +141,24 @@
            divs[i].style.top=y+"px"; 
         if(y>600){   
         document.body.removeChild(divs[i]);
-        var fen1=document.querySelector(".fen1");
         fen1.innerHTML=parseInt(fen1.innerHTML)+1;
+        if(fen1.innerHTML==10){
+            clearInterval(t);
+            start.style.display="block";
+
+        }else{
         divs.splice(i,1);
         create(1);
-        break;
-        
-         
-}                       
-       }
+        break;    
+        }    
+}                     
+      }
 },50) 
-  
+
+    
     document.onkeydown = function(ev){
        
-       
+       var denji=1
        var letter = String.fromCharCode(ev.keyCode);
       for (var i = 0; i< divs.length; i++){
         if(divs[i].innerHTML==letter){ 
@@ -136,9 +166,11 @@
         var fen=document.querySelector(".fen")
         fen.innerHTML= parseInt(fen.innerHTML)+2;
         divs.splice(i,1);
-        create(2);         
-}        
+        create(1);     
+}       
  }  
+ 
+
              
 }
 
